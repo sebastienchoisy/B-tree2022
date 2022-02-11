@@ -30,6 +30,12 @@ public class Noeud<Type> implements java.io.Serializable {
     // Ordre de l'abre (u = nombre de cl�s maximum = 2m)
     private final int u, tailleMin;
 
+    // Noeud suivant
+    private Noeud<Type> previous;
+
+    //Noeud Precedent
+    private Noeud<Type> next;
+
 
     /* Constructeur de la classe noeud, qui permet l'ajout et la recherche d'�l�ment dans les branches
      * @param u Nombre de cl�s maximum du noeud
@@ -41,6 +47,21 @@ public class Noeud<Type> implements java.io.Serializable {
         this.tailleMin = u/2;
         compar = e;
         this.parent = parent;
+    }
+
+    public void setNext(Noeud<Type> next) {
+        this.next = next;
+    }
+
+    public void setPrevious(Noeud<Type> previous) {
+        this.previous = previous;
+    }
+
+    public Noeud<Type> getNext() {
+        return next;
+    }
+    public Noeud<Type> getPrevious() {
+        return previous;
     }
 
     public boolean compare(Type arg1, Type arg2) {
@@ -530,6 +551,11 @@ public class Noeud<Type> implements java.io.Serializable {
                     noeudGauche.parent = nouveauParent;
                     noeudDroit.parent = nouveauParent;
 
+                    // Referencement suivant/precedent entre les deux nouveaux noeuds
+
+                    noeudGauche.setNext(noeudDroit);
+                    noeudDroit.setPrevious(noeudGauche);
+
                     // Et on rajoute dans les clefs du nouveau parent l'ancienne clef "centrale"
                     nouveauParent.addValeur(eleMedian, true);
 
@@ -541,6 +567,19 @@ public class Noeud<Type> implements java.io.Serializable {
                     noeud.parent.addNoeud(noeudDroit);
                     noeudGauche.parent = noeud.parent;
                     noeudDroit.parent = noeud.parent;
+
+                    // Referencement suivant/precedent entre les deux nouveaux noeuds et par rapport au noeud precedent et suivant le noeud courant
+
+                    noeudGauche.setNext(noeudDroit);
+                    noeudDroit.setPrevious(noeudGauche);
+                    if(noeud.getPrevious() != null) {
+                        noeud.getPrevious().setNext(noeudGauche);
+                        noeudGauche.setPrevious(noeud.getPrevious());
+                    }
+                    if(noeud.getNext() != null){
+                        noeud.getNext().setPrevious(noeudDroit);
+                        noeudDroit.setNext(noeud.getNext());
+                    }
 
                     // On retire le noeud courant des fils du parent ( les noeuds gauche et droit viennent le remplacer )
                     noeud.parent.removeNoeud(noeud);
@@ -643,6 +682,11 @@ public class Noeud<Type> implements java.io.Serializable {
                     noeudGauche.parent = nouveauParent;
                     noeudDroit.parent = nouveauParent;
 
+                    // Referencement suivant/precedent entre les deux nouveaux noeuds
+
+                    noeudGauche.setNext(noeudDroit);
+                    noeudDroit.setPrevious(noeudGauche);
+
 
                     // Et on rajoute dans les clefs du nouveau parent l'ancienne clef "centrale"
                     nouveauParent.addValeur(eleMedian, true);
@@ -655,6 +699,19 @@ public class Noeud<Type> implements java.io.Serializable {
                     noeud.parent.addNoeud(noeudDroit);
                     noeudGauche.parent = noeud.parent;
                     noeudDroit.parent = noeud.parent;
+
+                    // Referencement suivant/precedent entre les deux nouveaux noeuds et par rapport au noeud precedent et suivant le noeud courant
+
+                    noeudGauche.setNext(noeudDroit);
+                    noeudDroit.setPrevious(noeudGauche);
+                    if(noeud.getPrevious() != null) {
+                        noeud.getPrevious().setNext(noeudGauche);
+                        noeudGauche.setPrevious(noeud.getPrevious());
+                    }
+                    if(noeud.getNext() != null){
+                        noeud.getNext().setPrevious(noeudDroit);
+                        noeudDroit.setNext(noeud.getNext());
+                    }
 
                     // On retire le noeud courant des fils du parent ( les noeuds gauche et droit viennent le remplacer )
                     noeud.parent.removeNoeud(noeud);

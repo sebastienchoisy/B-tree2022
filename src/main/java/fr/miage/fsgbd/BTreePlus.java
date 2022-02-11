@@ -18,6 +18,10 @@ public class BTreePlus<Type> implements java.io.Serializable {
         racine.afficheNoeud(true, 0);
     }
 
+    public Noeud<Type> getRacine(){
+        return this.racine;
+    }
+
     /**
      * Méthode récursive permettant de récupérer tous les noeuds
      *
