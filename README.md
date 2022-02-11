@@ -26,4 +26,5 @@ Un test a également été créé lors de l'implantation du référencement du n
 
 ## Résultats
 
-On remarque que le temps de recherche séquentielle est nettement supérieur au temps de recherche indexée.
+On remarque que le temps de recherche séquentielle dans le fichier est nettement supérieur au temps de recherche séquentiel dans l'arbre.
+Le temps de recherche séquentiel dans l'arbre est, lui, supérieur au temps de recherche indexé dans l'arbre.

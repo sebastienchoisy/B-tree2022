@@ -1,10 +1,17 @@
 package fr.miage.fsgbd;
 
 import javax.swing.tree.DefaultMutableTreeNode;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.stream.*;
 
 
 /**
@@ -105,7 +112,7 @@ public class BTreePlus<Type> implements java.io.Serializable {
 
     // Methode de recherche sequentielle
 
-    public Integer rechercheSequentielle(Integer value) {
+    public Integer rechercheSequentielleDansArbre(Integer value) {
         Noeud<Type> noeud = racine;
         while (noeud.fils.size() > 0) {
             noeud = noeud.fils.get(0);
@@ -120,6 +127,29 @@ public class BTreePlus<Type> implements java.io.Serializable {
         return ligne;
     }
 
+    public Integer rechercheSequentielleDansFichier(Integer value){
+        BufferedReader reader;
+        Integer socialNumber;
+        Integer valueLine = 0;
+        try {
+            reader = new BufferedReader(new FileReader("data.txt"));
+            String line = reader.readLine();
+            Integer lineNumber = 0;
+            while (valueLine == 0 && line != null) {
+                lineNumber++;
+                socialNumber = Integer.parseInt(line.substring(0, line.indexOf(",")));
+                line = reader.readLine();
+                if(socialNumber == value){
+                    valueLine = lineNumber;
+                }
+            }
+            reader.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+        return valueLine;
+    }
+
     // On fait les deux types de recherches dans la meme methode et on publie les resultats/statistiques sur la console et dans
     // le fichier RapportDeRecherche.txt à la racine
 
@@ -130,13 +160,16 @@ public class BTreePlus<Type> implements java.io.Serializable {
             ArrayList<Type> liste = this.creationListeValeursRecherchees();
             Date date = new Date();
             DateFormat format = DateFormat.getInstance();
-            long begin, end, tempsIndexe, tempsSequentiel;
+            long begin, end, tempsIndexe, tempsSequentiel, tempsSequentielFichier;
             long tempsMoyenIndexe = 0;
             long tempsMaxIndexe = 0;
             long tempsMinIndexe = 99999999;
             long tempsMoyenSequentiel = 0;
             long tempsMaxSequentiel = 0;
             long tempsMinSequentiel = 99999999;
+            long tempsMoyenSequentielFichier = 0;
+            long tempsMaxSequentielFichier = 0;
+            long tempsMinSequentielFichier = 99999999;
 
             for (Type element : liste) {
 
@@ -151,9 +184,9 @@ public class BTreePlus<Type> implements java.io.Serializable {
                 if (tempsIndexe > tempsMaxIndexe)
                     tempsMaxIndexe = tempsIndexe;
 
-                //Recherche Sequentielle
+                //Recherche Sequentielle dans l'arbre
                 begin = System.nanoTime();
-                this.rechercheSequentielle((Integer) element);
+                this.rechercheSequentielleDansArbre((Integer) element);
                 end = System.nanoTime();
                 tempsSequentiel = end - begin;
                 tempsMoyenSequentiel += tempsSequentiel;
@@ -162,9 +195,21 @@ public class BTreePlus<Type> implements java.io.Serializable {
                 if (tempsSequentiel > tempsMaxSequentiel)
                     tempsMaxSequentiel = tempsSequentiel;
 
+                //Recherche Sequentielle dans le fichier
+                begin = System.nanoTime();
+                this.rechercheSequentielleDansFichier((Integer) element);
+                end = System.nanoTime();
+                tempsSequentielFichier = end - begin;
+                tempsMoyenSequentielFichier += tempsSequentielFichier;
+                if (tempsSequentielFichier < tempsMinSequentielFichier)
+                    tempsMinSequentielFichier = tempsSequentielFichier;
+                if (tempsSequentielFichier > tempsMaxSequentielFichier)
+                    tempsMaxSequentielFichier = tempsSequentielFichier;
+
             }
             tempsMoyenIndexe = tempsMoyenIndexe / 100;
             tempsMoyenSequentiel = tempsMoyenSequentiel / 100;
+            tempsMoyenSequentielFichier = tempsMoyenSequentielFichier / 100;
 
             // Display dans la console
 
@@ -173,22 +218,28 @@ public class BTreePlus<Type> implements java.io.Serializable {
             System.out.println("Temps moyen pour une recherche indexee : " + tempsMoyenIndexe + " nanosecondes.");
             System.out.println("Temps maximum pour une recherche indexee : " + tempsMaxIndexe + " nanosecondes.");
             System.out.println("Temps minimum pour une recherche indexee : " + tempsMinIndexe + " nanosecondes.\n");
-            System.out.println("Temps moyen pour une recherche sequentielle : " + tempsMoyenSequentiel + " nanosecondes.");
-            System.out.println("Temps maximum pour une recherche sequentielle : " + tempsMaxSequentiel + " nanosecondes.");
-            System.out.println("Temps minimum pour une recherche sequentielle : " + tempsMinSequentiel + " nanosecondes.");
+            System.out.println("Temps moyen pour une recherche sequentielle dans l'arbre : " + tempsMoyenSequentiel + " nanosecondes.");
+            System.out.println("Temps maximum pour une recherche sequentielle dans l'arbre : " + tempsMaxSequentiel + " nanosecondes.");
+            System.out.println("Temps minimum pour une recherche sequentielle dans l'arbre : " + tempsMinSequentiel + " nanosecondes.\n");
+            System.out.println("Temps moyen pour une recherche sequentielle dans le fichier : " + tempsMoyenSequentielFichier + " nanosecondes.");
+            System.out.println("Temps maximum pour une recherche sequentielle dans le fichier : " + tempsMaxSequentielFichier + " nanosecondes.");
+            System.out.println("Temps minimum pour une recherche sequentielle dans le fichier : " + tempsMinSequentielFichier + " nanosecondes.");
 
             // On ecrit le resultat des recherches dans le fichier de rapport
 
             writer.writeInReportFile(format.format(date.getTime()) + " Statistiques");
             writer.writeInReportFile("\n");
-            writer.writeInReportFile("Recherches indexees et sequentielles realisees sur 100 valeurs choisies aleatoirement");
+            writer.writeInReportFile("Recherches indexees et sequentielles (dans l'arbre et dans le fichier) realisees sur 100 valeurs choisies aleatoirement");
             writer.writeInReportFile("\n");
             writer.writeInReportFile("Temps moyen pour une recherche indexee : " + tempsMoyenIndexe + " nanosecondes.");
             writer.writeInReportFile("Temps maximum pour une recherche indexee : " + tempsMaxIndexe + " nanosecondes.");
             writer.writeInReportFile("Temps minimum pour une recherche indexee : " + tempsMinIndexe + " nanosecondes.\n");
-            writer.writeInReportFile("Temps moyen pour une recherche sequentielle : " + tempsMoyenSequentiel + " nanosecondes.");
-            writer.writeInReportFile("Temps maximum pour une recherche sequentielle : " + tempsMaxSequentiel + " nanosecondes.");
-            writer.writeInReportFile("Temps minimum pour une recherche sequentielle : " + tempsMinSequentiel + " nanosecondes.");
+            writer.writeInReportFile("Temps moyen pour une recherche sequentielle dans l'arbre : " + tempsMoyenSequentiel + " nanosecondes.");
+            writer.writeInReportFile("Temps maximum pour une recherche sequentielle dans l'arbre : " + tempsMaxSequentiel + " nanosecondes.");
+            writer.writeInReportFile("Temps minimum pour une recherche sequentielle dans l'arbre : " + tempsMinSequentiel + " nanosecondes.\n");
+            writer.writeInReportFile("Temps moyen pour une recherche sequentielle dans le fichier : " + tempsMoyenSequentielFichier + " nanosecondes.");
+            writer.writeInReportFile("Temps maximum pour une recherche sequentielle dans le fichier : " + tempsMaxSequentielFichier + " nanosecondes.");
+            writer.writeInReportFile("Temps minimum pour une recherche sequentielle dans le fichier : " + tempsMinSequentielFichier + " nanosecondes.\n");
             writer.writeInReportFile("\n");
         }
     }

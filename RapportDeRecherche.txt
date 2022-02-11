@@ -1,60 +1,100 @@
-11/02/2022 18:25 Statistiques
+11/02/2022 22:41 Statistiques
 
 
 Recherches indexees et sequentielles realisees sur 100 valeurs choisies aleatoirement
 
 
-Temps moyen pour une recherche indexee : 1135 nanosecondes.
-Temps maximum pour une recherche indexee : 12100 nanosecondes.
-Temps minimum pour une recherche indexee : 300 nanosecondes.
+Temps moyen pour une recherche indexee : 3519 nanosecondes.
+Temps maximum pour une recherche indexee : 7600 nanosecondes.
+Temps minimum pour une recherche indexee : 1800 nanosecondes.
 
-Temps moyen pour une recherche sequentielle : 77291 nanosecondes.
-Temps maximum pour une recherche sequentielle : 310800 nanosecondes.
-Temps minimum pour une recherche sequentielle : 3100 nanosecondes.
+Temps moyen pour une recherche sequentielle dans l'arbre : 107557 nanosecondes.
+Temps maximum pour une recherche sequentielle dans l'arbre : 261100 nanosecondes.
+Temps minimum pour une recherche sequentielle dans l'arbre : 700 nanosecondes.
 
-
-11/02/2022 18:26 Statistiques
-
-
-Recherches indexees et sequentielles realisees sur 100 valeurs choisies aleatoirement
+Temps moyen pour une recherche sequentielle dans le fichier : 12299315 nanosecondes.
+Temps maximum pour une recherche sequentielle dans le fichier : 17587200 nanosecondes.
+Temps minimum pour une recherche sequentielle dans le fichier : 2127600 nanosecondes.
 
 
-Temps moyen pour une recherche indexee : 985 nanosecondes.
-Temps maximum pour une recherche indexee : 11100 nanosecondes.
-Temps minimum pour une recherche indexee : 400 nanosecondes.
 
-Temps moyen pour une recherche sequentielle : 85580 nanosecondes.
-Temps maximum pour une recherche sequentielle : 917600 nanosecondes.
-Temps minimum pour une recherche sequentielle : 1900 nanosecondes.
-
-
-11/02/2022 18:27 Statistiques
+11/02/2022 22:42 Statistiques
 
 
 Recherches indexees et sequentielles realisees sur 100 valeurs choisies aleatoirement
 
 
-Temps moyen pour une recherche indexee : 1535 nanosecondes.
-Temps maximum pour une recherche indexee : 15400 nanosecondes.
-Temps minimum pour une recherche indexee : 600 nanosecondes.
+Temps moyen pour une recherche indexee : 3357 nanosecondes.
+Temps maximum pour une recherche indexee : 14100 nanosecondes.
+Temps minimum pour une recherche indexee : 1500 nanosecondes.
 
-Temps moyen pour une recherche sequentielle : 99884 nanosecondes.
-Temps maximum pour une recherche sequentielle : 548500 nanosecondes.
-Temps minimum pour une recherche sequentielle : 700 nanosecondes.
+Temps moyen pour une recherche sequentielle dans l'arbre : 106723 nanosecondes.
+Temps maximum pour une recherche sequentielle dans l'arbre : 262600 nanosecondes.
+Temps minimum pour une recherche sequentielle dans l'arbre : 800 nanosecondes.
+
+Temps moyen pour une recherche sequentielle dans le fichier : 12298354 nanosecondes.
+Temps maximum pour une recherche sequentielle dans le fichier : 18145500 nanosecondes.
+Temps minimum pour une recherche sequentielle dans le fichier : 11162300 nanosecondes.
 
 
-11/02/2022 18:27 Statistiques
+
+11/02/2022 22:42 Statistiques
 
 
 Recherches indexees et sequentielles realisees sur 100 valeurs choisies aleatoirement
 
 
-Temps moyen pour une recherche indexee : 4372 nanosecondes.
-Temps maximum pour une recherche indexee : 336500 nanosecondes.
-Temps minimum pour une recherche indexee : 200 nanosecondes.
+Temps moyen pour une recherche indexee : 2625 nanosecondes.
+Temps maximum pour une recherche indexee : 3900 nanosecondes.
+Temps minimum pour une recherche indexee : 1600 nanosecondes.
 
-Temps moyen pour une recherche sequentielle : 69112 nanosecondes.
-Temps maximum pour une recherche sequentielle : 414600 nanosecondes.
-Temps minimum pour une recherche sequentielle : 900 nanosecondes.
+Temps moyen pour une recherche sequentielle dans l'arbre : 98505 nanosecondes.
+Temps maximum pour une recherche sequentielle dans l'arbre : 254100 nanosecondes.
+Temps minimum pour une recherche sequentielle dans l'arbre : 1600 nanosecondes.
+
+Temps moyen pour une recherche sequentielle dans le fichier : 12025622 nanosecondes.
+Temps maximum pour une recherche sequentielle dans le fichier : 15765800 nanosecondes.
+Temps minimum pour une recherche sequentielle dans le fichier : 11133800 nanosecondes.
+
+
+
+11/02/2022 22:42 Statistiques
+
+
+Recherches indexees et sequentielles realisees sur 100 valeurs choisies aleatoirement
+
+
+Temps moyen pour une recherche indexee : 2804 nanosecondes.
+Temps maximum pour une recherche indexee : 5600 nanosecondes.
+Temps minimum pour une recherche indexee : 1300 nanosecondes.
+
+Temps moyen pour une recherche sequentielle dans l'arbre : 106737 nanosecondes.
+Temps maximum pour une recherche sequentielle dans l'arbre : 287000 nanosecondes.
+Temps minimum pour une recherche sequentielle dans l'arbre : 1000 nanosecondes.
+
+Temps moyen pour une recherche sequentielle dans le fichier : 12126421 nanosecondes.
+Temps maximum pour une recherche sequentielle dans le fichier : 16798200 nanosecondes.
+Temps minimum pour une recherche sequentielle dans le fichier : 11095600 nanosecondes.
+
+
+
+11/02/2022 22:42 Statistiques
+
+
+Recherches indexees et sequentielles realisees sur 100 valeurs choisies aleatoirement
+
+
+Temps moyen pour une recherche indexee : 2890 nanosecondes.
+Temps maximum pour une recherche indexee : 4400 nanosecondes.
+Temps minimum pour une recherche indexee : 1400 nanosecondes.
+
+Temps moyen pour une recherche sequentielle dans l'arbre : 115927 nanosecondes.
+Temps maximum pour une recherche sequentielle dans l'arbre : 300200 nanosecondes.
+Temps minimum pour une recherche sequentielle dans l'arbre : 1000 nanosecondes.
+
+Temps moyen pour une recherche sequentielle dans le fichier : 12375364 nanosecondes.
+Temps maximum pour une recherche sequentielle dans le fichier : 16361000 nanosecondes.
+Temps minimum pour une recherche sequentielle dans le fichier : 11169700 nanosecondes.
+
 
 
