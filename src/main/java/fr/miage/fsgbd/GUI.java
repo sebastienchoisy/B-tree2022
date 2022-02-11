@@ -16,7 +16,7 @@ import java.io.IOException;
 public class GUI extends JFrame implements ActionListener {
     TestInteger testInt = new TestInteger();
     BTreePlus<Integer> bInt;
-    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh,  buttonLoadFromData;
+    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh,  buttonLoadFromData, buttonSearch;
     private JTextField txtNbreItem, txtNbreSpecificItem, txtU, txtFile, removeSpecific, txtDataFile;
     private final JTree tree = new JTree();
 
@@ -94,7 +94,9 @@ public class GUI extends JFrame implements ActionListener {
 
             } else if (e.getSource() == buttonRemove) {
                 bInt.removeValeur(Integer.parseInt(removeSpecific.getText()));
-            }
+            } else if(e.getSource() == buttonSearch) {
+            bInt.recherche();
+        }
         }
 
         tree.setModel(new DefaultTreeModel(bInt.bArbreToJTree()));
@@ -253,6 +255,13 @@ public class GUI extends JFrame implements ActionListener {
         c.gridwidth = 1;
         pane1.add(buttonRefresh, c);
 
+        buttonSearch = new JButton("Lancer les recherches");
+        c.gridx = 2;
+        c.gridy = 8;
+        c.weightx = 1;
+        c.gridwidth = 2;
+        pane1.add(buttonSearch, c);
+
         buttonLoadFromData = new JButton("Charger l'arbre depuis le fichier de donnes");
         c.gridx = 2;
         c.gridy = 7;
@@ -262,10 +271,10 @@ public class GUI extends JFrame implements ActionListener {
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 400;       //reset to default
-        c.weighty = 1.0;   //request any extra vertical space
+        c.weighty = 1.5;   //request any extra vertical space
         c.gridwidth = 4;   //2 columns wide
         c.gridx = 0;
-        c.gridy = 8;
+        c.gridy = 9;
 
         JScrollPane scrollPane = new JScrollPane(tree);
         pane1.add(scrollPane, c);
@@ -282,6 +291,7 @@ public class GUI extends JFrame implements ActionListener {
         buttonClean.addActionListener(this);
         buttonRefresh.addActionListener(this);
         buttonLoadFromData.addActionListener(this);
+        buttonSearch.addActionListener(this);
 
         return pane1;
     }
