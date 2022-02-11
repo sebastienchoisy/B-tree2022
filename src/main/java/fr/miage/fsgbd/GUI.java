@@ -6,7 +6,9 @@ import javax.swing.tree.DefaultTreeModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 
 /**
  * @author Galli Gregory, Mopolo Moke Gabriel
@@ -14,8 +16,8 @@ import java.awt.event.ActionListener;
 public class GUI extends JFrame implements ActionListener {
     TestInteger testInt = new TestInteger();
     BTreePlus<Integer> bInt;
-    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh;
-    private JTextField txtNbreItem, txtNbreSpecificItem, txtU, txtFile, removeSpecific;
+    private JButton buttonClean, buttonRemove, buttonLoad, buttonSave, buttonAddMany, buttonAddItem, buttonRefresh,  buttonLoadFromData;
+    private JTextField txtNbreItem, txtNbreSpecificItem, txtU, txtFile, removeSpecific, txtDataFile;
     private final JTree tree = new JTree();
 
     public GUI() {
@@ -24,7 +26,8 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == buttonLoad || e.getSource() == buttonClean || e.getSource() == buttonSave || e.getSource() == buttonRefresh) {
+        if (e.getSource() == buttonLoad || e.getSource() == buttonClean || e.getSource() == buttonSave || e.getSource() == buttonRefresh
+                || e.getSource() == buttonLoadFromData) {
             if (e.getSource() == buttonLoad) {
                 BDeserializer<Integer> load = new BDeserializer<Integer>();
                 bInt = load.getArbre(txtFile.getText());
@@ -40,6 +43,25 @@ public class GUI extends JFrame implements ActionListener {
                 BSerializer<Integer> save = new BSerializer<Integer>(bInt, txtFile.getText());
             }else if (e.getSource() == buttonRefresh) {
                 tree.updateUI();
+            } else if (e.getSource() == buttonLoadFromData) {
+                if (bInt == null)
+                    bInt = new BTreePlus<>(Integer.parseInt(txtU.getText()), testInt);
+                BufferedReader reader;
+                String socialNumber;
+                try {
+                    reader = new BufferedReader(new FileReader(txtDataFile.getText()));
+                    String line = reader.readLine();
+                    Integer lineNumber = 0;
+                    while (line != null) {
+                        lineNumber++;
+                        socialNumber = line.substring(0, line.indexOf(","));
+                        line = reader.readLine();
+                        bInt.addValeur(Integer.parseInt(socialNumber), lineNumber);
+                    }
+                    reader.close();
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
         } else {
             if (bInt == null)
@@ -189,6 +211,20 @@ public class GUI extends JFrame implements ActionListener {
         c.gridwidth = 1;
         pane1.add(txtFile, c);
 
+        JLabel dataFilename = new JLabel("Nom de fichier de donnees : ");
+        c.gridx = 0;
+        c.gridy = 6;
+        c.weightx = 1;
+        c.gridwidth = 1;
+        pane1.add(dataFilename, c);
+
+        txtDataFile = new JTextField("data.txt", 7);
+        c.gridx = 1;
+        c.gridy = 6;
+        c.weightx = 1;
+        c.gridwidth = 1;
+        pane1.add(txtDataFile, c);
+
         buttonSave = new JButton("Sauver l'arbre");
         c.gridx = 2;
         c.gridy = 5;
@@ -207,15 +243,22 @@ public class GUI extends JFrame implements ActionListener {
         c.gridx = 2;
         c.gridy = 6;
         c.weightx = 1;
-        c.gridwidth = 2;
+        c.gridwidth = 1;
         pane1.add(buttonClean, c);
 
         buttonRefresh = new JButton("Refresh");
+        c.gridx = 3;
+        c.gridy = 6;
+        c.weightx = 1;
+        c.gridwidth = 1;
+        pane1.add(buttonRefresh, c);
+
+        buttonLoadFromData = new JButton("Charger l'arbre depuis le fichier de donnes");
         c.gridx = 2;
         c.gridy = 7;
         c.weightx = 1;
         c.gridwidth = 2;
-        pane1.add(buttonRefresh, c);
+        pane1.add(buttonLoadFromData, c);
 
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 400;       //reset to default
@@ -238,6 +281,7 @@ public class GUI extends JFrame implements ActionListener {
         buttonRemove.addActionListener(this);
         buttonClean.addActionListener(this);
         buttonRefresh.addActionListener(this);
+        buttonLoadFromData.addActionListener(this);
 
         return pane1;
     }
